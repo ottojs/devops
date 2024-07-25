@@ -1,9 +1,15 @@
 # Windows
 
+## Introduction
+
+Please follow the instructions below, in order.
+
 ## Requirements
 
-- Windows 10
-- Windows 11
+- Windows 10 Pro/Enterprise/Workstation
+- Windows 11 Pro/Enterprise/Workstation
+- PowerShell v7.4.4 (see below)
+- Chocolatey (see below)
 
 ## Install PowerShell (MSI)
 
@@ -26,7 +32,7 @@ If not, follow [these instructions to enable Virtualization](https://support.mic
 ## Install Chocolatey
 
 [Chocolatey Install Docs](https://chocolatey.org/install#individual)  
-This is provided for convenience and you should verify it matches above (for security reasons and updates)
+The command below is provided for convenience and you should verify it matches instructions in the link above (for security reasons and in case of updates)
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -35,7 +41,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 1. Close all PowerShell windows
 1. Right click start menu buton => Windows PowerShell (Admin)
 1. Run `choco list`
-1. Run `choco install gsudo -y` to install "sudo" capabilty (Windows 11 will eventually have native sudo)
+1. There is upcoming "sudo" support in Windows 11, but that's still in beta. Using `gsudo` is recommended for now.
+1. Run `choco install gsudo -y` to install "sudo" capabilty
 1. Close all PowerShell windows
 
 ## Install Windows Terminal
@@ -90,17 +97,19 @@ Actions (in sidebar)
         => Save
 
 All Done
-  => Press "Save" on bottom right
+  => Press "Save" button on bottom right
     => Close Settings Tab
 ```
 
 ## Recommended Packages
 
+**WARNING** - Generally speaking, I'd recommend doing as much setup as possible in WSL (Windows Subsystem for Linux). The reason is Chocolatey can have issues and does not have as stable of an experience as Homebrew on macOS or Linux package managers (apt, yum, pacman, etc.). You can delete and rebuild the WSL system at any time, helping contain any problems without causing issues with your main system.
+
 ```powershell
 # Settings
 choco feature enable --name="exitOnRebootDetected"
 
-# BAse
+# Base
 sudo choco install git -y
 sudo choco install nodejs-lts -y
 sudo choco install go -y
